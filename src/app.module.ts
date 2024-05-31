@@ -19,9 +19,9 @@ const { User } = require('./user/entities/user.entity');
         database: configService.get('DB_NAME'),
         entities: [User],
         synchronize: true,
-        migrations: ["dist/migrations/*{.ts,.js}"],
+        migrations: ['dist/migrations/*{.ts,.js}'],
         cli: {
-          migrationsDir: "src/migrations"
+          migrationsDir: 'src/migrations',
         },
       }),
       inject: [ConfigService],
