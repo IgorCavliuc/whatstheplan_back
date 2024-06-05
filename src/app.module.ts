@@ -3,7 +3,7 @@ const { TypeOrmModule } = require('@nestjs/typeorm');
 const { ConfigModule, ConfigService } = require('@nestjs/config');
 const { AuthModule } = require('./auth/auth.module');
 const { UserModule } = require('./user/user.module');
-const { User } = require('./user/entities/user.entity');
+const { Users } = require('./user/entities/user.entity');
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ const { User } = require('./user/entities/user.entity');
         username: configService.get('DB_USERNAME'),
         password: configService.get('DB_PASSWORD'),
         database: configService.get('DB_NAME'),
-        entities: [User],
+        entities: [Users],
         synchronize: true,
         migrations: ['dist/migrations/*{.ts,.js}'],
         cli: {

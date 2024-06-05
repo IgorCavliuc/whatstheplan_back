@@ -9,7 +9,7 @@ import {
 type UserStatus = 'active' | 'inactive' | 'suspended';
 
 @Entity()
-export class User {
+export class Users {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

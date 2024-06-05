@@ -5,7 +5,7 @@ import * as argon2 from 'argon2';
 import { JwtService, TokenExpiredError } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { User } from '../user/entities/user.entity';
+import { Users } from '../user/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ConfigService } from '@nestjs/config';
 import { profile, wallpaper } from './constants';
@@ -13,8 +13,8 @@ import { profile, wallpaper } from './constants';
 @Injectable()
 export class AuthService {
   constructor(
-    @InjectRepository(User)
-    private readonly userRepository: Repository<User>,
+    @InjectRepository(Users)
+    private readonly userRepository: Repository<Users>,
     private readonly userService: UserService,
     private jwtService: JwtService,
     private configService: ConfigService,
@@ -54,7 +54,7 @@ export class AuthService {
     return newRefreshToken;
   }
 
-  async getUserById(email: string): Promise<User> {
+  async getUserById(email: string): Promise<Users> {
     return this.userRepository.findOne({
       where: {
         email: email,
@@ -71,8 +71,6 @@ export class AuthService {
           email: 'User not found',
         },
       });
-
-    console.log(user.password, password);
 
     const passwordIsMatch = await argon2.verify(user.password, password);
 
@@ -147,8 +145,10 @@ export class AuthService {
       id: savedUser.id,
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...otherData } = savedUser;
     return {
-      user: { ...savedUser },
+      user: { ...otherData },
       access_token: access_token,
     };
   }

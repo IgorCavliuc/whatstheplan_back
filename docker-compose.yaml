@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: db_whatstheplun
+    image: postgres:14.3-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_PASSWORD=67732092
+      - POSTGRES_USER=admin
+
+volumes:
+  postgres_data:
